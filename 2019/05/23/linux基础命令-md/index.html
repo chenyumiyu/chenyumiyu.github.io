@@ -7,9 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-    tags | Zzc&#39;s Blog
+    linux基础命令.md | Zzc&#39;s Blog
   </title>
   <meta name="description" content="Zzc Blog">
+  
+  <meta name="keywords" content="
+  command
+  ">
   
   <meta name="author" content="Zzc">
 
@@ -77,92 +81,80 @@
 </nav>
 
 <div class="main-container">
-  <div class="container-lg">
-  
-
-<div class="blog-intro">
-  <div class="blog-intro-user">
-    <img class="avatar" src="/tangpuseng.jpg">
-    <div class="user-name">
-      <div class="blog-title">Zzc&#39;s Blog</div>
-      <div class="blog-author">Zzc</div>
-        <ul class="user-detail mobile-only">
-    
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Shenzhen, China
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:zhaochangzhong0@gmail.com">zhaochangzhong0@gmail.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://www.chenyumiyu.club">https://www.chenyumiyu.club</a>
-    </li>
-  </ul>
-    </div>
-    <div class="blog-description">
-      Zzc Blog
-    </div>
-  </div>
-
-  <ul class="user-detail desktop-only">
-    
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Shenzhen, China
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:zhaochangzhong0@gmail.com">zhaochangzhong0@gmail.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://www.chenyumiyu.club">https://www.chenyumiyu.club</a>
-    </li>
-  </ul>
-
-  <div class="social-media desktop-only">
-    <h4>Social Media</h4>
-    <ul>
-      
-      <li class="social-media-item"><a href="https://github.com/chenyumiyu" target="_blank"><i class="fa fa-github"></i></a></li>
-      
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 3 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 2 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 2 </a>
+      </li>
     </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Zzc&#39;s Blog</a>
+      
+      
+    </h2>
   </div>
-</div>
 
-
-  <div class="blog-detail">
-    
-<nav class="blog-detail-nav desktop-only">
-  <ul class="clearfix">
-    <li class>
-      <a href="/">Overview</a></li>
-    <li class>
-      <a href="/archives">Posts <span class="counter">3</span></a>
-    </li>
-    <li class>
-      <a href="/categories">Categories <span class="counter">2</span></a></li>
-    <li class="selected">
-      <a href="/tags">Tags <span class="counter">2</span></a></li>
-  </ul>
-</nav>
-
-    <div class="body-secondary">
-
-      
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a><span class="tag-list-count">1</span></li></ul>
-      
-      
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
     </div>
   </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Zzc
+
+    <span class="post-date float-right" title="{{moment(1558602241000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1558602241000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>linux基础命令.md</h1>
+    <pre><code>linux 基础命令,帮助用户进行相关内容查阅
+</code></pre><h1 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
+<li>ls</li>
+<li>pwd</li>
+<li>du</li>
+<li>rm</li>
+<li>cp</li>
+<li>scp</li>
+</ul>
+<h2 id="资源监控"><a href="#资源监控" class="headerlink" title="资源监控"></a>资源监控</h2><ul>
+<li>top</li>
+<li>htop</li>
+<li>free -m</li>
+<li>nvidia-smi</li>
+</ul>
+
+  </article>
 </div>
+
+
+    
+
+
+
+
 </div>
 
 <div class="footer-wrapper container">
