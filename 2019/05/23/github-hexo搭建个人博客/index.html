@@ -130,12 +130,115 @@
 
   <article class="post-content">
     <h1>github+hexo搭建个人博客</h1>
-    <p>使用github+hexo搭建个人blog，并使用appveor进行版本控制和持续集成。</p>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="1-github仓库"><a href="#1-github仓库" class="headerlink" title="1.github仓库"></a>1.github仓库</h2><ul>
+    <p>使用github+hexo搭建个人blog，并使用appveyor进行版本控制和持续集成。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="1-github"><a href="#1-github" class="headerlink" title="1.github"></a>1.github</h3><pre><code>全球程序最大同性交友网站，代码搬运的不二之选，程序猿的必备工具之一。
+本文中最重要的目的是进行代码的版本控制和博客内容的存放。
+</code></pre><ul>
 <li><a href="https://github.com/" target="_blank" rel="noopener">github 帐号注册</a></li>
+<li><a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">git安装</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496" target="_blank" rel="noopener">git简单使用</a></li>
+<li>github blog 内容仓库创建</li>
 </ul>
-<h2 id="2-node-js安装"><a href="#2-node-js安装" class="headerlink" title="2.node.js安装"></a>2.node.js安装</h2><h2 id="3-hexo安装"><a href="#3-hexo安装" class="headerlink" title="3.hexo安装"></a>3.hexo安装</h2><h2 id="4-hexo-git工具安装"><a href="#4-hexo-git工具安装" class="headerlink" title="4.hexo+git工具安装"></a>4.hexo+git工具安装</h2><h2 id="5-创建blog仓库"><a href="#5-创建blog仓库" class="headerlink" title="5.创建blog仓库"></a>5.创建blog仓库</h2><h2 id="6-appvor进行版本控制和持续集成"><a href="#6-appvor进行版本控制和持续集成" class="headerlink" title="6.appvor进行版本控制和持续集成"></a>6.appvor进行版本控制和持续集成</h2><h2 id="7-允许搜索引擎（google-or-baidu）收录"><a href="#7-允许搜索引擎（google-or-baidu）收录" class="headerlink" title="7.允许搜索引擎（google or baidu）收录"></a>7.允许搜索引擎（google or baidu）收录</h2><h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><h2 id="1-域名映射"><a href="#1-域名映射" class="headerlink" title="1.域名映射"></a>1.域名映射</h2><h2 id="1-github-can-not-find-tags-categories-or-…"><a href="#1-github-can-not-find-tags-categories-or-…" class="headerlink" title="1.github can not find tags(categories or …)"></a>1.github can not find tags(categories or …)</h2><h2 id="2-github生成personal-key在appvor使用中遇到的坑"><a href="#2-github生成personal-key在appvor使用中遇到的坑" class="headerlink" title="2.github生成personal key在appvor使用中遇到的坑"></a>2.github生成personal key在appvor使用中遇到的坑</h2><h2 id="3-hexo设置语言"><a href="#3-hexo设置语言" class="headerlink" title="3.hexo设置语言"></a>3.hexo设置语言</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="www.baidu.com">Markdown语法</a></li>
+<h3 id="2-node-js"><a href="#2-node-js" class="headerlink" title="2.node.js"></a>2.node.js</h3><ul>
+<li><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">node.js安装</a></li>
+<li>检测node.js是否被正确安装： node -v(命令行下)</li>
+<li>检测npm是否正确安装： npm -v</li>
+</ul>
+<h3 id="3-hexo"><a href="#3-hexo" class="headerlink" title="3.hexo"></a>3.hexo</h3><pre><code>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以生成静态网页直接托管在
+github和heroku上。
+</code></pre><ul>
+<li>hexo安装: npm install -g hexo-cli</li>
+<li>hexo创建blog: hexo init blog</li>
+<li><p>blog项目主要路径说明：</p>
+<ul>
+<li>node_modules： hexo的node.js模块</li>
+<li>source： blog源代码<ul>
+<li>_posts<ul>
+<li>blog.md: Markdown格式的个人blog</li>
+</ul>
+</li>
+<li>CNAME: 如果你有域名的话，可以直接将域名指向到github的博客内容，文件内容为你的域名</li>
+</ul>
+</li>
+<li>themes： hexo博客主题</li>
+<li>_config.yml： blog主配置文件， 只需要简单配置，就可以实现</li>
+<li>.gitignore： git上传文件控制，可以控制部分敏感or无用的文件提交</li>
+</ul>
+</li>
+<li><p>hexo框架主要命令：</p>
+<ul>
+<li>hexo new blog.md: 新建blog</li>
+<li>hexo g： 根据新建blog生成静态页面</li>
+<li>hexo s： 本地debug测试</li>
+<li>hexo d: 发布到github上（需要进行全局配置）</li>
+</ul>
+</li>
+<li><p>hexo博客主要配置_config.yml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"></span><br><span class="line"># Site</span><br><span class="line"># 需要设置的部分</span><br><span class="line">title: Zzc&apos;s Blog</span><br><span class="line">subtitle: hello, world!</span><br><span class="line">description: Python, 自然语言处理, 深度学习, 羽毛球爱好者.</span><br><span class="line">keywords: Python, 自然语言处理, 机器学习, 深度学习</span><br><span class="line">author: Zzc</span><br><span class="line">language: zh-Hans   # 语言设置</span><br><span class="line">timezone: Asia/Shanghai # 时区设置</span><br><span class="line"></span><br><span class="line"># URL</span><br><span class="line"># 修改域名指向需要设置的部分</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: https://www.chenyumiyu.club</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br><span class="line"></span><br><span class="line"># 主题，可以自己在github上寻找自己需要的主题</span><br><span class="line"># 默认为： hexo</span><br><span class="line"># 存储文件夹： themes</span><br><span class="line">theme: replica</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line"># 需要设置的部分</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git(托管平台类型)</span><br><span class="line">  repo: 你的github博客内容仓库</span><br><span class="line">  branch: master（分支）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>域名指向user_name.github.io</p>
+<ul>
+<li>购买域名： 需要进行域名备案才能进行解析（阿里云or腾讯云）</li>
+<li>user_name.github.io的ip： ping user_name.github.io</li>
+<li>解析域名： 参考域名提供商的官方文档<ul>
+<li>修改相关参数可以直接将域名直接指向到博客ip</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-hexo-git工具安装"><a href="#4-hexo-git工具安装" class="headerlink" title="4.hexo+git工具安装"></a>4.hexo+git工具安装</h3><pre><code>Hexo此时创建的blog只能在本地运行，不能外网访问的blog还有啥意义呢
+</code></pre><ul>
+<li>npm install hexo-deployer-git –save: hexo部署到git工具安装 </li>
+<li>hexo clean: 清除缓存</li>
+<li>hexo g: 生成blog静态页面</li>
+<li>hexo d： 发布到github博客内容仓库</li>
+</ul>
+<h3 id="5-创建blog源代码仓库"><a href="#5-创建blog源代码仓库" class="headerlink" title="5.创建blog源代码仓库"></a>5.创建blog源代码仓库</h3><h3 id="6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）"><a href="#6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）" class="headerlink" title="6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）"></a>6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）</h3><pre><code>有了源代码管理了，可以在不同的电脑进行blog编写了，但是如果只是下载下来了hexo的源代码版本库，
+难道又要重新走一边在上面的流程嘛？Appveyor就是这样的一个平台，监控你的源博客提交，并自动部署。
+当然它的功能不知如此，有兴趣的可以深入研究。
+</code></pre><ul>
+<li><a href="https://www.appveyor.com/docs/" target="_blank" rel="noopener">Appveyor官网</a></li>
+<li>登录： 直接使用github帐号登录</li>
+<li><p>源代码新建appveyor.yml文件（修改相关注明文件，其他不用修改）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">clone_depth: 5</span><br><span class="line"> </span><br><span class="line">environment:</span><br><span class="line">  nodejs_version: &quot;11&quot;  # 最好填写对应的nodejs版本，因为有些hexo主题对nodejs对版本有要求</span><br><span class="line">  access_token:</span><br><span class="line">    secure: appveyor 转换后的github personal key</span><br><span class="line"> </span><br><span class="line">install:</span><br><span class="line">  - ps: Install-Product node $env:nodejs_version</span><br><span class="line">  - node --version</span><br><span class="line">  - npm --version</span><br><span class="line">  - npm install</span><br><span class="line">  - npm install hexo-cli -g</span><br><span class="line"> </span><br><span class="line">build_script:</span><br><span class="line">  - hexo generate</span><br><span class="line"> </span><br><span class="line">artifacts:</span><br><span class="line">  - path: public</span><br><span class="line"> </span><br><span class="line">on_success:</span><br><span class="line">  - git config --global credential.helper store</span><br><span class="line">  - ps: Add-Content &quot;$env:USERPROFILE\.git-credentials&quot; &quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span><br><span class="line">  - git config --global user.email &quot;%GIT_USER_EMAIL%&quot;</span><br><span class="line">  - git config --global user.name &quot;%GIT_USER_NAME%&quot;</span><br><span class="line">  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %STATIC_SITE_REPO% %TEMP%\static-site</span><br><span class="line">  - cd %TEMP%\static-site</span><br><span class="line">  - del * /f /q</span><br><span class="line">  - for /d %%p IN (*) do rmdir &quot;%%p&quot; /s /q</span><br><span class="line">  - SETLOCAL EnableDelayedExpansion &amp; robocopy &quot;%APPVEYOR_BUILD_FOLDER%\public&quot; &quot;%TEMP%\static-site&quot; /e &amp; IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))</span><br><span class="line">  - git add -A</span><br><span class="line">  - if &quot;%APPVEYOR_REPO_BRANCH%&quot;==&quot;master&quot; if not defined APPVEYOR_PULL_REQUEST_NUMBER (git diff --quiet --exit-code --cached || git commit -m &quot;Update Static Site&quot; &amp;&amp; git push origin %TARGET_BRANCH% &amp;&amp; appveyor AddMessage &quot;Static Site Updated&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>持续集成： git clone 你的hexo博客源代码仓库，直接在source下新建相关文件，然后再提交到github远程仓库就可以了，appveyor会自动监控并且部署</p>
+</li>
+<li>新建blog：<ul>
+<li>直接复制原有的博客，然后修改名字就可以了</li>
+<li>修改文件首部的tag， 标题， 分类， 归档</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-未完待续"><a href="#7-未完待续" class="headerlink" title="7.未完待续"></a>7.未完待续</h3><ul>
+<li>加入搜索引擎收录</li>
+<li>加入站点访问统计</li>
+<li>加入打赏</li>
+<li>博客迁移到云服务器，因为国内访问太慢了</li>
+<li>博客加入评论功能</li>
+</ul>
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><ul>
+<li>1.域名映射<ul>
+<li>user_name.github.io原博客地址为国外域名， 直接在域名提供商解析域名处选择为国外域名，不翻墙基本无法访问</li>
+</ul>
+</li>
+<li>1.github can not find tags(categories or …)<ul>
+<li>hexo初始化hexo的source下不存在分类、tag目录</li>
+<li>创建： hexo new page “categories”</li>
+<li>创建： hexo new page “tags”</li>
+<li>创建： hexo new page “archives”</li>
+</ul>
+</li>
+<li>2.github生成personal key在appveyor使用中遇到的坑<ul>
+<li>无法直接使用，需要使用appveyor的加密，然后在填入appveyor.yml文件中</li>
+</ul>
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.appinn.com/markdown/" target="_blank" rel="noopener">Markdown语法</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">hexo搭建个人blog</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/58654392" target="_blank" rel="noopener">hexo博客迁移到云服务器</a></li>
 </ul>
 
   </article>
