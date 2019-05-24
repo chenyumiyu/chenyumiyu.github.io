@@ -131,9 +131,8 @@
   <article class="post-content">
     <h1>github+hexo搭建个人博客</h1>
     <p>使用github+hexo搭建个人blog，并使用appveyor进行版本控制和持续集成。</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="1-github"><a href="#1-github" class="headerlink" title="1.github"></a>1.github</h3><pre><code>全球程序最大同性交友网站，代码搬运的不二之选，程序猿的必备工具之一。
-本文中最重要的目的是进行代码的版本控制和博客内容的存放。
-</code></pre><ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="1-github"><a href="#1-github" class="headerlink" title="1.github"></a>1.github</h3><p>全球程序最大同性交友网站，代码搬运的不二之选，程序猿的必备工具之一。<br>本文中最重要的目的是进行代码的版本控制和博客内容的存放。</p>
+<ul>
 <li><a href="https://github.com/" target="_blank" rel="noopener">github 帐号注册</a></li>
 <li><a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">git安装</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496" target="_blank" rel="noopener">git简单使用</a></li>
@@ -144,9 +143,8 @@
 <li>检测node.js是否被正确安装： node -v(命令行下)</li>
 <li>检测npm是否正确安装： npm -v</li>
 </ul>
-<h3 id="3-hexo"><a href="#3-hexo" class="headerlink" title="3.hexo"></a>3.hexo</h3><pre><code>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以生成静态网页直接托管在
-github和heroku上。
-</code></pre><ul>
+<h3 id="3-hexo"><a href="#3-hexo" class="headerlink" title="3.hexo"></a>3.hexo</h3><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以生成静态网页直接托管在<br>github和heroku上。</p>
+<ul>
 <li>hexo安装: npm install -g hexo-cli</li>
 <li>hexo创建blog: hexo init blog</li>
 <li><p>blog项目主要路径说明：</p>
@@ -194,17 +192,16 @@ github和heroku上。
 <li>hexo g: 生成blog静态页面</li>
 <li>hexo d： 发布到github博客内容仓库</li>
 </ul>
-<h3 id="5-创建blog源代码仓库"><a href="#5-创建blog源代码仓库" class="headerlink" title="5.创建blog源代码仓库"></a>5.创建blog源代码仓库</h3><h3 id="6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）"><a href="#6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）" class="headerlink" title="6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）"></a>6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）</h3><pre><code>有了源代码管理了，可以在不同的电脑进行blog编写了，但是如果只是下载下来了hexo的源代码版本库，
-难道又要重新走一边在上面的流程嘛？Appveyor就是这样的一个平台，监控你的源博客提交，并自动部署。
-当然它的功能不知如此，有兴趣的可以深入研究。
-</code></pre><ul>
+<h3 id="5-创建blog源代码仓库"><a href="#5-创建blog源代码仓库" class="headerlink" title="5.创建blog源代码仓库"></a>5.创建blog源代码仓库</h3><h3 id="6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）"><a href="#6-Appveyor进行hexo博客持续集成（注意：-需要科学上网）" class="headerlink" title="6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）"></a>6.Appveyor进行hexo博客持续集成（注意： 需要科学上网）</h3><p>有了源代码管理了，可以在不同的电脑进行blog编写了，但是如果只是下载下来了hexo的源代码版本库，<br>难道又要重新走一边在上面的流程嘛？Appveyor就是这样的一个平台，监控你的源博客提交，并自动部署。<br>当然它的功能不知如此，有兴趣的可以深入研究。</p>
+<ul>
 <li><a href="https://www.appveyor.com/docs/" target="_blank" rel="noopener">Appveyor官网</a></li>
 <li>登录： 直接使用github帐号登录</li>
 <li><p>源代码新建appveyor.yml文件（修改相关注明文件，其他不用修改）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">clone_depth: 5</span><br><span class="line"> </span><br><span class="line">environment:</span><br><span class="line">  nodejs_version: &quot;11&quot;  # 最好填写对应的nodejs版本，因为有些hexo主题对nodejs对版本有要求</span><br><span class="line">  access_token:</span><br><span class="line">    secure: appveyor 转换后的github personal key</span><br><span class="line"> </span><br><span class="line">install:</span><br><span class="line">  - ps: Install-Product node $env:nodejs_version</span><br><span class="line">  - node --version</span><br><span class="line">  - npm --version</span><br><span class="line">  - npm install</span><br><span class="line">  - npm install hexo-cli -g</span><br><span class="line"> </span><br><span class="line">build_script:</span><br><span class="line">  - hexo generate</span><br><span class="line"> </span><br><span class="line">artifacts:</span><br><span class="line">  - path: public</span><br><span class="line"> </span><br><span class="line">on_success:</span><br><span class="line">  - git config --global credential.helper store</span><br><span class="line">  - ps: Add-Content &quot;$env:USERPROFILE\.git-credentials&quot; &quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span><br><span class="line">  - git config --global user.email &quot;%GIT_USER_EMAIL%&quot;</span><br><span class="line">  - git config --global user.name &quot;%GIT_USER_NAME%&quot;</span><br><span class="line">  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %STATIC_SITE_REPO% %TEMP%\static-site</span><br><span class="line">  - cd %TEMP%\static-site</span><br><span class="line">  - del * /f /q</span><br><span class="line">  - for /d %%p IN (*) do rmdir &quot;%%p&quot; /s /q</span><br><span class="line">  - SETLOCAL EnableDelayedExpansion &amp; robocopy &quot;%APPVEYOR_BUILD_FOLDER%\public&quot; &quot;%TEMP%\static-site&quot; /e &amp; IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))</span><br><span class="line">  - git add -A</span><br><span class="line">  - if &quot;%APPVEYOR_REPO_BRANCH%&quot;==&quot;master&quot; if not defined APPVEYOR_PULL_REQUEST_NUMBER (git diff --quiet --exit-code --cached || git commit -m &quot;Update Static Site&quot; &amp;&amp; git push origin %TARGET_BRANCH% &amp;&amp; appveyor AddMessage &quot;Static Site Updated&quot;)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>持续集成： git clone 你的hexo博客源代码仓库，直接在source下新建相关文件，然后再提交到github远程仓库就可以了，appveyor会自动监控并且部署</p>
+<li><p><a href="https://ci.appveyor.com/tools/encrypt" target="_blank" rel="noopener">appveyorKey生成</a></p>
 </li>
+<li>持续集成： git clone 你的hexo博客源代码仓库，直接在source下新建相关文件，然后再提交到github远程仓库就可以了，appveyor会自动监控并且部署</li>
 <li>新建blog：<ul>
 <li>直接复制原有的博客，然后修改名字就可以了</li>
 <li>修改文件首部的tag， 标题， 分类， 归档</li>
