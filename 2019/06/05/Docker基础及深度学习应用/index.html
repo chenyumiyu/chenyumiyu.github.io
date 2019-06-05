@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Docker基础及深度学习应用 | Zzc&#39;s Blog
+  </title>
+  <meta name="description" content="Python, 自然语言处理, 深度学习, 羽毛球爱好者.">
+  
+  <meta name="keywords" content="
+  Docker
+  ">
+  
+  <meta name="author" content="Zzc">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="/tangpuseng.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 3 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 3 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 2 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Zzc&#39;s Blog</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    Zzc
+
+    <span class="post-date float-right" title="{{moment(1559729495000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1559729495000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Docker基础及深度学习应用</h1>
+    <p>#一 基础</p>
+<p>##1.1 概念</p>
+<ul>
+<li>官方概念:<br>类比大货轮(生产环境:ubuntu centos)上的集装箱,集装箱可以将化学品 食物 玩具等等一个个独立分割(即可以满足不同版本的tensorflow版本模型),只需要一艘货轮就可以运送食物 化学品等,并且在同一艘大货轮中可以一直持续的增加集装箱,并且进行统一管理(消耗低 通信方便)</li>
+<li>解决痛点:<ol>
+<li>问题: “我的本地机器可以运行啊, 线上怎么不可以运行啊”</li>
+<li>问题2: 深度学习繁杂的框架和依赖, 我太懒了, 对linux环境也不是很熟, 也不想花费很多时间和精力去折腾环境, 这时候怎么办?</li>
+<li>问题3: 假设构建一个算法平台, 包含如下三个算法, 这种情况, 你如何在一台服务器上, 整合所有的算法集成为一个算法平台?<ul>
+<li>文本摘要: tensorflow-gpu==1.10 | cudnn==7.0 | gcc=4</li>
+<li>命名实体识别: tensorflow-gpu==1.4 | cudnn==6.0 | gcc=4</li>
+<li>文本分类: pytroch=1.1 | gcc==4.7</li>
+<li>构建三个docker容器, 指定相关端口进行通讯, 直接集成所有算法</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>解决方案: docker 大法好, 下载相关的docker镜像, 运行镜像创建环境, 直接保证无痛运行</li>
+</ul>
+</li>
+</ul>
+<p>##1.2 容器<br><strong>不虚拟化操作内核, 只虚拟化相关操作系统接口</strong><br>概念</p>
+<ul>
+<li>一种虚拟化方案</li>
+<li>操作系统级别的虚拟化</li>
+<li>只能运行相同or相似内核的操作系统</li>
+<li>依赖于linux内核特性: namespace和cgroups (control group)</li>
+</ul>
+<p>优点</p>
+<ul>
+<li>占用磁盘空间小</li>
+<li>资源占用小</li>
+<li>对CPU 内存资源消耗小</li>
+</ul>
+<p>##1.3 框架图<br>wKiom1jCbLPTOe1iAAERmX6iMrE621.png</p>
+<p>##1.4 安装</p>
+<ul>
+<li>主要系统安装(google 搜索以下关键字)<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04" target="_blank" rel="noopener">ubuntu18 install docker</a></li>
+</ul>
+</li>
+<li>系统要求<ul>
+<li>x64架构: uname -r 可以直接查看</li>
+</ul>
+</li>
+<li>注意:<ul>
+<li>下载安装docker(root用户)<ul>
+<li>直接使用国外镜像安装可以会报超时错误,直接通过国内源的方式进行安装</li>
+</ul>
+</li>
+<li>非sudo用户使用docker<ul>
+<li>sudo usermod -aG docker your_username</li>
+<li>设置完毕后需要重新登录该用户才能通过不加sudo直接使用docker</li>
+</ul>
+</li>
+<li>修改docker <strong>image</strong>仓库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#对于使用 systemd 的系统，请在 /etc/docker/daemon.json 中写入如下内容（如果文件不存在请新建该文件）</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>#二 Docker</p>
+<h2 id="2-1-基础命令"><a href="#2-1-基础命令" class="headerlink" title="2.1 基础命令"></a>2.1 基础命令</h2><ul>
+<li>Dockerfile: (相关命令, 构建镜像)</li>
+<li>image(镜像):<ul>
+<li>docker image ls: 显示当前镜像</li>
+<li>docker pull image(镜像名): 从docker仓库中拉取镜像</li>
+<li>docker image rm image_id: 移除相关镜像<ul>
+<li>必须先删除相关容器才能删除镜像</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>contanin(容器):<ul>
+<li>docker run -it imageName bash: 运行镜像并进入bash界面</li>
+<li>docker ps: 查看当前运行的容器</li>
+<li>docker contanin ls -a: 查看所有运行过的容器</li>
+<li>docker contanin rm contanin_id: 根据容器id删除容器</li>
+<li>docker commit -m=”modify msg” -a=”author” containerId imageName<ol>
+<li>docker ps : 查看当前运行容器id</li>
+<li>需要在当前未退出容器的基础上, 打开另外一个shell界面, 保存当前容器为新镜像</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-2-常用操作"><a href="#2-2-常用操作" class="headerlink" title="2.2 常用操作"></a>2.2 常用操作</h2><ul>
+<li>常用操作:<ul>
+<li>docker run -it 镜像名 bash: 运行镜像并进入bash界面</li>
+<li>docker run -it -v 共享文件夹路径:/容器内共享文件夹路径 镜像名 bash</li>
+<li>docker run -it -p 8000:8000 -v 共享文件夹路径:/容器内共享文件夹路径 镜像名 bash<ul>
+<li>-p: 指定网络端口进行通信</li>
+<li>-v: 指定共享文件夹</li>
+</ul>
+</li>
+<li><strong>CTRL + P +Q: 退出容器但保证后台运行</strong></li>
+</ul>
+</li>
+<li>常用仓库:<ul>
+<li><a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">Nvidia docker GPU加速docker</a></li>
+<li><a href="https://hub.docker.com/r/ufoym/deepo" target="_blank" rel="noopener">depo-国人一站式深度学习docker仓库</a></li>
+</ul>
+</li>
+<li>保存及备份操作:</li>
+</ul>
+<p>#参考</p>
+<ol>
+<li><a href="https://www.zhihu.com/search?type=content&amp;q=docker" target="_blank" rel="noopener">如何通俗易懂的说明docker</a></li>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/network/port_mapping.html" target="_blank" rel="noopener">docker 从入门到实践</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">阮一峰Docker入门教程</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">阮一峰Docker微服务</a></li>
+<li><a href="https://blog.51cto.com/tangyade/1905232" target="_blank" rel="noopener">docker 基础概念和框架</a></li>
+<li><a href="https://www.zhihu.com/question/22871084" target="_blank" rel="noopener">docker 优势-知乎</a></li>
+</ol>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://www.chenyumiyu.club" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 Zzc</li>
+      <li><a href="https://www.chenyumiyu.club">Home</a></li>
+      
+      <li><a href="https://github.com/chenyumiyu">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
