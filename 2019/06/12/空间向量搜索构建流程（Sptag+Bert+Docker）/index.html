@@ -131,19 +131,7 @@
   <article class="post-content">
     <h1>空间向量搜索构建流程（Sptag+Bert+Docker）</h1>
     <p>微软SPTAG向量搜索工具工程化构建总结。</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
-<li>构建流程及指标： <ul>
-<li>构建流程： 句子 -&gt; Bert句向量 -&gt; Sptag构建空间向量搜索图</li>
-<li>训练时间参考： 原始200W数据， 因为目前Sptag仅支持单核CPU构建的情况，训练时间约24h</li>
-</ul>
-</li>
-<li>搜素流程及指标：<ul>
-<li>句子 -&gt; Bert句向量： 60ms，基于cpu， 可以使用GPu并行加速获取句向量</li>
-<li>Bert句向量 -&gt; Sptag空间向量搜索： 40ms</li>
-</ul>
-</li>
-</ul>
-<h2 id="Spatg"><a href="#Spatg" class="headerlink" title="Spatg"></a>Spatg</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>微软官方在Github 开源的大规模最近邻向量搜索库， <a href="https://github.com/microsoft/SPTAG">Sptag</a>github地址。</p>
+<h2 id="Spatg"><a href="#Spatg" class="headerlink" title="Spatg"></a>Spatg</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>微软官方在Github 开源的大规模最近邻向量搜索库， <a href="https://github.com/microsoft/SPTAG">Sptag Github</a>。</p>
 <ul>
 <li>主要流程： 样本-&gt;转化为向量-&gt;根据样本向量构建KDT图</li>
 <li>提供构建方法：<ul>
@@ -198,19 +186,38 @@
 <li>pip install -U bert-serving-server[http]： 如果需要将Bert句向量服务提供http请求的方式，需要安装该依赖（基于flask框架，提供一个单进程的http服务，如果对并发有要求还是最好自己去封装吧）</li>
 </ul>
 </li>
-<li>支持http请求版本：<ul>
-<li>bert-serving-start -model_dir=/YOUR_MODEL -http_port 8125</li>
+<li><p>支持http请求版本：</p>
+<ul>
+<li>bert-serving-start -model_dir=/YOUR_MODEL -http_port 8125： 直接指定端口运行</li>
+<li>post数据格式： **上传数据有部分内容为数据，需要以json形式post<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://server38.raisound.com:25004/encode \</span><br><span class="line">   -H &apos;content-type: application/json&apos; \</span><br><span class="line">   -d &apos;&#123;&quot;id&quot;: 123,&quot;texts&quot;: [&quot;hello world&quot;], &quot;is_tokenized&quot;: false&#125;&apos;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li>多线程版本：<ul>
+<li><p>多线程版本：</p>
+<ul>
 <li>设置基于cpu提供Bert句向量</li>
 <li>设置并发数为：10</li>
-<li>对外端口为： 5555<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time  : 6/12/19 10:03 AM</span></span><br><span class="line"><span class="comment"># @Author : zhongzhaochang</span></span><br><span class="line"><span class="comment"># @Project : bert</span></span><br><span class="line"><span class="comment"># @Desc : 开启bert服务， 对外提供句子转bert向量</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bert_serving.server.helper <span class="keyword">import</span> get_args_parser</span><br><span class="line"><span class="keyword">from</span> bert_serving.server <span class="keyword">import</span> BertServer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cur_dir = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">model_dir = os.path.join(cur_dir, <span class="string">"models"</span>)</span><br><span class="line"></span><br><span class="line">bert_model = os.path.join(model_dir, <span class="string">"chinese_L-12_H-768_A-12"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># start： python bert_service.py</span></span><br><span class="line"><span class="comment"># stop: bert-serving-terminate -port 5555(or 你指定监听客户端的端口)</span></span><br><span class="line">args = get_args_parser().parse_args([<span class="string">'-model_dir'</span>, bert_model,</span><br><span class="line">                                     <span class="string">'-port'</span>, <span class="string">'5555'</span>,</span><br><span class="line">                                     <span class="string">'-port_out'</span>, <span class="string">'5556'</span>,</span><br><span class="line">                                     <span class="string">'-max_seq_len'</span>, <span class="string">'NONE'</span>,</span><br><span class="line">                                     <span class="string">'-mask_cls_sep'</span>,</span><br><span class="line">                                     <span class="string">'-cpu'</span>,</span><br><span class="line">                                     <span class="string">'-num_worker'</span>, <span class="string">'10'</span>])</span><br><span class="line">server = BertServer(args)</span><br><span class="line">server.start()</span><br></pre></td></tr></table></figure>
+<li><p>对外端口为： 5555</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time  : 6/12/19 10:03 AM</span></span><br><span class="line"><span class="comment"># @Author : zhongzhaochang</span></span><br><span class="line"><span class="comment"># @Project : bert</span></span><br><span class="line"><span class="comment"># @Desc : 开启bert服务， 对外提供句子转bert向量</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bert_serving.server.helper <span class="keyword">import</span> get_args_parser</span><br><span class="line"><span class="keyword">from</span> bert_serving.server <span class="keyword">import</span> BertServer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cur_dir = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">model_dir = os.path.join(cur_dir, <span class="string">"models"</span>)</span><br><span class="line"></span><br><span class="line">bert_model = os.path.join(model_dir, <span class="string">"chinese_L-12_H-768_A-12"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># start： python bert_service.py</span></span><br><span class="line"><span class="comment"># stop: bert-serving-terminate -port 5555(or 你指定监听客户端的端口)</span></span><br><span class="line">args = get_args_parser().parse_args([<span class="string">'-model_dir'</span>, bert_model,</span><br><span class="line">                                     <span class="string">'-port'</span>, <span class="string">'5555'</span>,</span><br><span class="line">                                     <span class="string">'-port_out'</span>, <span class="string">'5556'</span>,</span><br><span class="line">                                     <span class="string">'-max_seq_len'</span>, <span class="string">'NONE'</span>,</span><br><span class="line">                                     <span class="string">'-mask_cls_sep'</span>,</span><br><span class="line">                                     <span class="string">'-cpu'</span>,</span><br><span class="line">                                     <span class="string">'-num_worker'</span>, <span class="string">'10'</span>])</span><br><span class="line">server = BertServer(args)</span><br><span class="line">server.start()</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-</li>
-</ul>
+<li><p><strong>client获取句向量主要代码</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time  : 6/11/19 6:34 PM</span></span><br><span class="line"><span class="comment"># @Author : zhongzhaochang</span></span><br><span class="line"><span class="comment"># @Project : bert</span></span><br><span class="line"><span class="comment"># @Desc : 简单bert_client 获取句向量代码</span></span><br><span class="line"><span class="keyword">from</span> bert_serving.client <span class="keyword">import</span> BertClient</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_vector_by_bert_client</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    bc = BertClient(ip=<span class="string">"127.0.0.1"</span>, port=<span class="number">5555</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        question = input(<span class="string">"input sentence:\n"</span>)</span><br><span class="line">        vectors = bc.encode([question])</span><br><span class="line">        print(str(vectors), vectors.shape)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    get_vector_by_bert_client()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
+<li>构建流程及指标： <ul>
+<li>构建流程： 句子 -&gt; Bert句向量 -&gt; Sptag构建空间向量搜索图</li>
+<li>训练时间参考： 原始200W数据， 因为目前Sptag仅支持单核CPU构建的情况，训练时间约24h</li>
+</ul>
+</li>
+<li>搜素流程及指标：<ul>
+<li>句子 -&gt; Bert句向量： 60ms，基于cpu， 可以使用GPu并行加速获取句向量</li>
+<li>Bert句向量 -&gt; Sptag空间向量搜索： 40ms</li>
+</ul>
+</li>
+</ul>
 <h4 id="issue："><a href="#issue：" class="headerlink" title="issue："></a>issue：</h4><ul>
 <li>启动Bert model模型时，可能会出现该问题：<ul>
 <li>INFO：tensorflow: Could not find trained model in model_dir: /tmp/xxxx, running initialization to predict<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#Bert 仓库的解释是：</span><br><span class="line">Note: You may see a message like Could not find trained model in model_dir: /tmp/tmpuB5g5c, running initialization to predict. </span><br><span class="line">This message is expected, it just means that we are using the init_from_checkpoint() API rather than the saved model API. If you don&apos;t specify a checkpoint or specify an invalid checkpoint, this script will complain.</span><br><span class="line">我的做法是： 直接忽略它， 一个原因是该信息的重要等级只是INFO级别， 二是因为官方仓库的解释</span><br></pre></td></tr></table></figure>

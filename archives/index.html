@@ -185,13 +185,11 @@
           <h2><a href="/2019/06/12/空间向量搜索构建流程（Sptag+Bert+Docker）/">空间向量搜索构建流程（Sptag+Bert+Docker）</a></h2>
           <p>
              微软SPTAG向量搜索工具工程化构建总结。 
-   流程  
- 构建流程及指标：  
- 构建流程： 句子 -&amp;gt; Bert句向量 -&amp;gt; Sptag构建空间向量搜索图 
- 训练时间参考： 原始200W数据， 因为目前Sptag仅支持单核CPU构建的情况，训练时间约24h 
+   Spatg    1.概述  微软官方在Github 开源的大规模最近邻向量搜索库，  Sptag Github 。 
  
- 
- 搜素流...
+ 主要流程： 样本-&amp;gt;转化为向量-&amp;gt;根据样本向量构建KDT图 
+ 提供构建方法： 
+ SPTAG-KDT：优势...
           </p>
           <ul class="tag-list clearfix">
             

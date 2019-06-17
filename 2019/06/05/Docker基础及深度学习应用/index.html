@@ -208,6 +208,7 @@
 <li>需要在当前未退出容器的基础上, 打开另外一个shell界面, 保存当前容器为新镜像</li>
 </ol>
 </li>
+<li>docker exec -it 容器id bash: 进入正在运行中的容器</li>
 </ul>
 </li>
 </ul>
@@ -220,7 +221,22 @@
 <li>-v: 指定共享文件夹</li>
 </ul>
 </li>
-<li><strong>CTRL + P +Q: 退出容器但保证后台运行</strong></li>
+<li><strong>CTRL + P +Q: 退出容器但保证后台运行</strong><ul>
+<li>有时会直接失效, 替代方法, 以开始就保持容器后台运行, 然后通过进入正在运行的docker容器去部署持久化应用</li>
+</ul>
+</li>
+<li>docker run -dit 镜像名 /bin/bash: 保证容器的后台运行, 并且使用exit时不会退出容器, 需要使用 容器的 stop方式停止<ul>
+<li>-d: 表示守护态运行容器</li>
+<li>–restart always: 表示随服务器开机自启动</li>
+</ul>
+</li>
+<li>docker container stop 容器id: 停止各种守护态\后台运行等状态容器</li>
+</ul>
+</li>
+<li>保存及备份操作:<ul>
+<li>docker save -o 备份镜像保存路径 镜像名</li>
+<li>docker load -i 备份镜像路径</li>
+<li>提交个人镜像到docker官方仓库(类似github): <strong>todo</strong></li>
 </ul>
 </li>
 <li>常用仓库:<ul>
@@ -228,7 +244,6 @@
 <li><a href="https://hub.docker.com/r/ufoym/deepo" target="_blank" rel="noopener">depo-国人一站式深度学习docker仓库</a></li>
 </ul>
 </li>
-<li>保存及备份操作:</li>
 </ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
 <li><a href="https://www.zhihu.com/search?type=content&amp;q=docker" target="_blank" rel="noopener">如何通俗易懂的说明docker</a></li>
